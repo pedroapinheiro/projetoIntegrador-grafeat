@@ -1,6 +1,6 @@
 package org.generation.grafeat.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,9 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "tb_vendedores")
@@ -24,15 +27,16 @@ public class Vendedor {
 	private Long id;
 	
 	@NotBlank(message = "O nome do vendedor não pode ser vazio")
-	@Size(min = 7, max = 100, message = "O nome deve conter no mínimo 7 e no máximo 100 caracteres.")
+	@Size(min = 4, max = 100, message = "O nome deve conter no mínimo 7 e no máximo 100 caracteres.")
 	private String nomeVendedor;
 	
+	@Schema(example = "email@email.com.br")
 	@NotBlank(message = "O email do vendedor não pode ser vazio")
 	@Size(min = 7, max = 100, message = "O email deve conter no mínimo 7 e no máximo 100 caracteres.")
 	private String usuario;
 	
 	@NotBlank(message = "A senha do vendedor não pode ser vazio")
-	@Size(min = 7, max = 100, message = "A senha deve conter no mínimo 7 e no máximo 100 caracteres.")
+	@Size(min = 8, max = 100, message = "A senha deve conter no mínimo 8 e no máximo 100 caracteres.")
 	private String senha;
 	
 	@NotBlank(message = "A foto do vendedor não pode ser vazio")
@@ -42,8 +46,8 @@ public class Vendedor {
 	@Size(min = 5, max = 100, message = "O local deve conter no mínimo 5 e no máximo 100 caracteres.")
 	private String localidade;
 	
-	@NotBlank(message = "A data do vendedor não pode ser vazio")
-	private Date dataDeNascimento;
+	@NotNull(message = "A data do vendedor não pode ser vazio")
+	private LocalDate dataDeNascimento;
 	
 	@NotBlank(message = "O tipo de pagamento não pode ser vazio")
 	private String tipoDePagamento;
@@ -100,16 +104,16 @@ public class Vendedor {
 		this.localidade = localidade;
 	}
 
-	public Date getDataDeNascimento() {
+	public LocalDate getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(Date dataDeNascimento) {
+	public void setDataDeNascimento(LocalDate dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
 	public String getTipoDePagamento() {
-		return tipoDePagamento;
+		return tipoDePagamento;	
 	}
 
 	public void setTipoDePagamento(String tipoDePagamento) {
